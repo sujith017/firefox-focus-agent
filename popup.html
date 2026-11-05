@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<main class="popup">
+  <div class="brand"><span class="brand-mark">◔</span><div><h1>Focus Ledger</h1><p id="period-title">Today, so far</p></div></div>
+  <div class="popup-tabs"><button data-popup-period="today" class="active">Today</button><button data-popup-period="session">Session</button></div>
+  <div id="summary" class="popup-summary" aria-label="Usage summary">Loading…</div>
+  <section class="popup-section"><p class="eyebrow">TOP WEBSITES</p><ol id="top-sites" class="top-sites"></ol></section>
+  <section class="quick-classify"><p class="eyebrow">CURRENT WEBSITE</p><strong id="current-domain">Loading…</strong><span id="current-category" class="site-category"></span><div class="choice-row"><button data-category="productive" class="productive-action">Productive</button><button data-category="distracting" class="distracting-action">Distracting</button></div></section>
+  <section class="popup-section timer-card"><div><p class="eyebrow">DAILY TIMER</p><strong id="timer-status">Loading…</strong></div><div class="timer-actions"><input id="timer-minutes" type="number" min="1" max="1440" placeholder="Minutes"><button id="save-timer" class="primary">Set</button></div><div class="timer-links"><button id="add-time">+15 min</button><button id="remove-timer">Remove timer</button></div></section>
+  <button id="open" class="primary open-dashboard">View full dashboard <span>→</span></button>
+</main><script src="popup.js"></script>

@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "Focus Ledger",
+  "version": "0.1.0",
+  "description": "Local-first active-tab time tracker and productivity summary.",
+  "permissions": ["tabs", "idle", "storage", "notifications"],
+  "background": { "scripts": ["background.js"], "persistent": true },
+  "icons": { "48": "icon.svg", "96": "icon.svg" },
+  "browser_action": { "default_title": "Focus Ledger", "default_popup": "popup.html", "default_icon": { "48": "icon.svg", "96": "icon.svg" } },
+  "options_ui": { "page": "dashboard.html", "open_in_tab": true },
+  "browser_specific_settings": { "gecko": { "id": "focus-ledger@example.local", "data_collection_permissions": { "required": ["none"] } } }
+}
