@@ -19,6 +19,11 @@ function renderCurrentSite() {
   document.querySelector("#timer-minutes").value = currentSite?.limitMinutes || "";
   document.querySelector("#add-time").disabled = !currentSite?.limitMinutes;
   document.querySelector("#remove-timer").disabled = !currentSite?.limitMinutes;
+  document.querySelectorAll("[data-category]").forEach(button => {
+    const selected = button.dataset.category === currentSite?.category;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
 }
 async function render() {
   const data = await browser.runtime.sendMessage({ type: "getLog" }); currentSite = await browser.runtime.sendMessage({ type: "getCurrentSite" });
@@ -28,7 +33,13 @@ async function render() {
 async function setTimer(minutesToSet) { const result = await browser.runtime.sendMessage({ type: "setCurrentSiteLimit", minutes: minutesToSet }); if (!result.error) await render(); }
 document.querySelectorAll("[data-popup-period]").forEach(button => button.onclick = () => { selectedPeriod = button.dataset.popupPeriod; render(); });
 document.querySelector("#open").onclick = () => browser.runtime.openOptionsPage();
-document.querySelectorAll("[data-category]").forEach(button => button.onclick = async () => { const result = await browser.runtime.sendMessage({ type: "setCurrentCategory", category: button.dataset.category }); if (!result.error) await render(); });
+document.querySelectorAll("[data-category]").forEach(button => button.onclick = async () => {
+  if (!currentSite) return;
+  currentSite = { ...currentSite, category: button.dataset.category };
+  renderCurrentSite();
+  const result = await browser.runtime.sendMessage({ type: "setCurrentCategory", category: button.dataset.category });
+  if (!result.error) await render();
+});
 document.querySelector("#save-timer").onclick = () => setTimer(Number(document.querySelector("#timer-minutes").value));
 document.querySelector("#add-time").onclick = () => setTimer((currentSite?.limitMinutes || 0) + 15);
 document.querySelector("#remove-timer").onclick = () => setTimer(0);
